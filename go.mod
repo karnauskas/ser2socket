@@ -1,4 +1,4 @@
-module github.com/karnauskas/ser2socket
+module github.com/pborges/ser2socket
 
 go 1.18
 
