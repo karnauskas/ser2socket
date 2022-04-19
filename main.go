@@ -1,15 +1,16 @@
 package main
 
 import (
-	"github.com/pkg/term"
+	"encoding/hex"
+	"fmt"
+	"io"
+	"log"
+	"net"
 	"os"
 	"strconv"
-	"net"
-	"io"
 	"sync"
-	"log"
-	"fmt"
-	"encoding/hex"
+
+	"github.com/pkg/term"
 )
 
 var clients map[net.Conn]bool
@@ -50,7 +51,7 @@ func main() {
 	}
 	serialPort.SetSpeed(baud)
 
-	l, err := net.Listen("tcp", ":" + strconv.Itoa(tcpPort))
+	l, err := net.Listen("tcp", ":"+strconv.Itoa(tcpPort))
 	if err != nil {
 		log.Printf("Unable to open Listen on Port %d %+v\n", tcpPort, err)
 		os.Exit(1)
