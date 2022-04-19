@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/pkg/term"
+	"github.com/tarm/serial"
 )
 
 var clients map[net.Conn]bool
@@ -44,12 +44,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	serialPort, err := term.Open(serialPortName)
+	serialPort, err := serial.OpenPort(&serial.Config{Name: serialPortName, Baud: baud})
 	if err != nil {
 		log.Printf("Unable to open Serial Port %+v\n", err)
 		os.Exit(1)
 	}
-	serialPort.SetSpeed(baud)
 
 	l, err := net.Listen("tcp", ":"+strconv.Itoa(tcpPort))
 	if err != nil {
